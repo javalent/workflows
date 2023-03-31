@@ -18,7 +18,7 @@ jobs:
             - name: Read VERSION file
               id: contents
               run: |
-                  cat input_filename | sed -i 's/\n/\\n/g' >> output_filename >> $GITHUB_OUTPUT
+                  cat test.md | sed -i 's/\n/\\n/g' >> $GITHUB_OUTPUT
             - name: Gets latest created release info
               id: release_info
               uses: jossef/action-latest-release-info@v1.2.1
