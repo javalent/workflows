@@ -16,7 +16,9 @@ jobs:
             matrix: ${{ steps.set-matrix.outputs.matrix }}
         steps:
             - id: set-matrix
-              run: echo "{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> raw.json
+              run: |
+                  echo "{\"content\":\"See greeting below\",\"embeds\":\[\"title\":\"Hello\",\"url\":\"https:\/\/github.com\",\"description\":\"World\"}\]}" >> generated.json
+                  cat generated.json;
 
     greet:
         # The type of runner that the job will run on
