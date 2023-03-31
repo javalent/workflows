@@ -16,7 +16,7 @@ jobs:
             matrix: ${{ steps.set-matrix.outputs.matrix }}
         steps:
             - id: set-matrix
-              run: echo "matrix='{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}'" >> $GITHUB_OUTPUT
+              run: echo "{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> raw.json
 
     greet:
         # The type of runner that the job will run on
@@ -28,8 +28,10 @@ jobs:
             - name: Read VERSION file
               id: contents
               run: echo "contents=$(cat README.md)" >> $$GITHUB_STATE
+            - id: set-matrix
+              run: echo "{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> generated.json
             - name: Discord Webhook Action
               uses: tsickert/discord-webhook@v5.3.0
               with:
                   webhook-url: https://discord.com/api/webhooks/1087082443133161533/lFC1g_L1NqWfsYQub3wE4FQY-HTyESZAAlVz8fXFbT9LVPxCX4AbC8fLtF1l5HBo1g5L
-                  raw-data: ${{fromJson(needs.job1.outputs.matrix)}}
+                  raw-data: generated.json
