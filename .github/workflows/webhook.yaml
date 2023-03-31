@@ -20,7 +20,7 @@ jobs:
               run: echo "contents=$(cat README.md)" >> $$GITHUB_STATE
             - id: set-matrix
               run: |
-                  echo "{\"content\":\"See greeting below\",\"embeds\":[{\"title\":\"Hello\",\"url\":\"https://www.github.com\",\"description\":\"World\"}]}" >> generated.json
+                  echo "{\"embeds\":[{\"title\":\"Hello\",\"url\":\"https://www.github.com\",\"description\":\"World\"}]}" >> generated.json
                   cat generated.json
             - name: Discord Webhook Action
               uses: tsickert/discord-webhook@v5.3.0
