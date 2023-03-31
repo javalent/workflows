@@ -18,9 +18,14 @@ jobs:
             - name: Read VERSION file
               id: contents
               run: echo "contents=$(cat README.md)" >> $$GITHUB_STATE
+            - name: Gets latest created release info
+              id: release_info
+              uses: jossef/action-latest-release-info@v1.2.1
+              env:
+                  GITHUB_TOKEN: ${{ github.token }}
             - id: set-matrix
               run: |
-                  echo "{\"embeds\":[{\"title\":\"Hello\",\"url\":\"https://www.github.com\",\"description\":\"World\"}]}" >> generated.json
+                  echo "{\"embeds\":[{\"title\":\"New Release: ${{steps.release_info.outputs.name}}\",\"url\":\"${{steps.release_info.outputs.html_url}}\",\"description\":\"World\"}]}" >> generated.json
                   cat generated.json
             - name: Discord Webhook Action
               uses: tsickert/discord-webhook@v5.3.0
