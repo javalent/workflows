@@ -1,0 +1,10 @@
+{
+    "content": "See greeting below",
+    "embeds": [
+        {
+            "title": "Hello",
+            "url": "https://github.com",
+            "description": "World"
+        }
+    ]
+}

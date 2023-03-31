@@ -10,6 +10,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "greet"
+    job1:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.set-matrix.outputs.matrix }}
+        steps:
+            - id: set-matrix
+              run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+
     greet:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
@@ -27,4 +35,4 @@ jobs:
               uses: tsickert/discord-webhook@v5.3.0
               with:
                   webhook-url: https://discord.com/api/webhooks/1087082443133161533/lFC1g_L1NqWfsYQub3wE4FQY-HTyESZAAlVz8fXFbT9LVPxCX4AbC8fLtF1l5HBo1g5L
-                  raw-data: raw.json
+                  raw-data: ${{fromJson(needs.job1.outputs.matrix)}}
