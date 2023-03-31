@@ -17,7 +17,7 @@ jobs:
             - uses: actions/checkout@v2
             - name: Read VERSION file
               id: contents
-              run: echo "contents=$(cat README.md)" >> $$GITHUB_STATE
+              run: echo "contents=$(cat test.md)" >> $$GITHUB_OUTPUT
             - name: Gets latest created release info
               id: release_info
               uses: jossef/action-latest-release-info@v1.2.1
@@ -25,8 +25,7 @@ jobs:
                   GITHUB_TOKEN: ${{ github.token }}
             - id: set-matrix
               run: |
-                  echo "test=$(cat test.md)" >> $$GITHUB_STATE
-                  echo "{\"embeds\":[{\"title\":\"New Release: ${{steps.release_info.outputs.name}}\",\"url\":\"${{steps.release_info.outputs.html_url}}\",\"description\":\"${{STATE_test}}\", \"timestamp\":\"${{steps.release_info.outputs.created_at}}\"}]}" >> generated.json
+                  echo "{\"embeds\":[{\"title\":\"New Release: ${{steps.release_info.outputs.name}}\",\"url\":\"${{steps.release_info.outputs.html_url}}\",\"description\":\"${{steps.contents.outputs.contents}}\", \"timestamp\":\"${{steps.release_info.outputs.created_at}}\"}]}" >> generated.json
                   cat generated.json
             - name: Discord Webhook Action
               uses: tsickert/discord-webhook@v5.3.0
