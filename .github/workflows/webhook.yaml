@@ -18,10 +18,7 @@ jobs:
             - name: Read VERSION file
               id: contents
               run: |
-                  EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-                  echo "contents<<$EOF" >> $GITHUB_OUTPUT
-                  echo $(cat test.md) >> $GITHUB_OUTPUT
-                  echo "$EOF" >> $GITHUB_OUTPUT
+                  cat input_filename | sed -i 's/\n/\\n/g' >> output_filename >> $GITHUB_OUTPUT
             - name: Gets latest created release info
               id: release_info
               uses: jossef/action-latest-release-info@v1.2.1
