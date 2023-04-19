@@ -7,8 +7,6 @@ name: publish
 jobs:
     publish:
         runs-on: ubuntu-latest
-        env:
-            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         steps:
             # The logic below handles the npm publication:
             - uses: actions/checkout@v2
@@ -17,6 +15,8 @@ jobs:
                   node-version: 18
                   registry-url: "https://registry.npmjs.org"
             - run: npm whoami
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - run: npm ci
             - run: npm publish
               env:
