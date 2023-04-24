@@ -54,10 +54,13 @@ async function execute() {
     /* for (const webhook of urls) { */
     console.log("🚀 ~ file: discord-embed.ts:44 ~ urls:", urls);
     const embeds = DME.render(body);
-    console.log("🚀 ~ file: discord-embed.ts:58 ~ embeds:", embeds);
+    for (const embed of embeds) {
+        embed.title = `${name} Release - ${version}`;
+        embed.timestamp = release.data.published_at;
+        embed.auther = "Jeremy Valentine";
+    }
     const response = await client.postJson(webhook, {
-        embeds,
-        title: `${name} Release - ${version}`
+        embeds
     });
 
     /* } */
