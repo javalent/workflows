@@ -6,7 +6,10 @@ inputs:
         description: Array of webhook URLs to post to.
         default: "[]"
         required: true
-
+    repo:
+        description: Override repo being ran
+    name:
+        description: Name to use for release notification
 runs:
     using: "node16"
     main: "../dist/discord-embed.js"

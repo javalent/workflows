@@ -6,11 +6,8 @@ import DME from "discord-markdown-embeds";
 
 enum Inputs {
     WebhookUrls = "webhook-urls",
-    Repo = "repo"
-}
-
-interface InputTypes {
-    [Inputs.WebhookUrls]: string;
+    Repo = "repo",
+    Name = "name"
 }
 
 declare global {
@@ -34,6 +31,7 @@ async function execute() {
     const webhook = core.getInput(Inputs.WebhookUrls, { required: true });
     console.log("🚀 ~ file: discord-embed.ts:28 ~ webhooks:", webhook);
     const repo = core.getInput(Inputs.Repo) ?? thisRepo;
+    const name = core.getInput(Inputs.Name) ?? repo;
     console.log("🚀 ~ file: discord-embed.ts:36 ~ repo:", repo);
     const urls = JSON.parse(`[]`).flat() as string[];
 
@@ -47,6 +45,7 @@ async function execute() {
     );
 
     const body = release.data.body;
+    const version = release.data.name;
     if (!body) {
         core.error("No release found");
         return;
@@ -56,7 +55,10 @@ async function execute() {
     console.log("🚀 ~ file: discord-embed.ts:44 ~ urls:", urls);
     const embeds = DME.render(body);
     console.log("🚀 ~ file: discord-embed.ts:58 ~ embeds:", embeds);
-    /*  const response = await client.postJson(webhook, payload); */
+    const response = await client.postJson(webhook, {
+        embeds,
+        title: `${name} Release - ${version}`
+    });
 
     /* } */
 }
