@@ -24,9 +24,9 @@ const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
 async function execute() {
     const client = new HttpClient();
     const octokit = new Octokit();
-    const urls = JSON.parse(
-        `[${core.getInput(Inputs.WebhookUrls, { required: true })}]`
-    ).flat() as string[];
+    const webhook = core.getInput(Inputs.WebhookUrls, { required: true });
+    console.log("🚀 ~ file: discord-embed.ts:28 ~ webhooks:", webhook);
+    const urls = JSON.parse(`[]`).flat() as string[];
 
     /** get last release from github api */
     const release = await octokit.request(
@@ -40,22 +40,22 @@ async function execute() {
     const body = release.data.body_html;
     if (!body) core.error("No release found");
 
-    for (const webhook of urls) {
-        console.log("🚀 ~ file: discord-embed.ts:44 ~ urls:", urls);
-        /*  const response = await client.postJson(webhook, payload); */
-        const formData = new FormData();
-        formData.append("upload-file", body);
-        formData.append("payload_json", JSON.stringify({}));
-        formData.submit(webhook, function (error, response) {
-            if (error != null) {
-                core.error(`failed to upload file: ${error.message}`);
-            } else {
-                core.info(
-                    `successfully uploaded file with status code: ${response.statusCode}`
-                );
-            }
-        });
-    }
+    /* for (const webhook of urls) { */
+    console.log("🚀 ~ file: discord-embed.ts:44 ~ urls:", urls);
+    /*  const response = await client.postJson(webhook, payload); */
+    const formData = new FormData();
+    formData.append("upload-file", body);
+    formData.append("payload_json", JSON.stringify({}));
+    formData.submit(webhook, function (error, response) {
+        if (error != null) {
+            core.error(`failed to upload file: ${error.message}`);
+        } else {
+            core.info(
+                `successfully uploaded file with status code: ${response.statusCode}`
+            );
+        }
+    });
+    /* } */
 }
 
 execute();
