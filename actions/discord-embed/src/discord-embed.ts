@@ -50,6 +50,7 @@ async function execute() {
         embed.title = `${name} Release - ${version}`;
         embed.timestamp = release.data.published_at;
         embed.fields.push({
+            name: "Documentation",
             value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)"
         });
         embed.url = release.data.html_url;
