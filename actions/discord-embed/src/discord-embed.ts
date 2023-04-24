@@ -49,9 +49,9 @@ async function execute() {
     for (const embed of embeds) {
         embed.title = `${name} Release - ${version}`;
         embed.timestamp = release.data.published_at;
-        embed.footer = {
-            text: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)"
-        };
+        embed.fields.push({
+            value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)"
+        });
         embed.url = release.data.html_url;
     }
     console.log("🚀 ~ file: discord-embed.ts:55 ~ embeds:", embeds);
