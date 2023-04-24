@@ -49,9 +49,9 @@ async function execute() {
     for (const embed of embeds) {
         embed.title = `${name} Release - ${version}`;
         embed.timestamp = release.data.published_at;
-        embed.author = "Jeremy Valentine";
     }
-    await client.postJson(webhook, {
+    console.log("🚀 ~ file: discord-embed.ts:55 ~ embeds:", embeds);
+    const response = await client.postJson(webhook, {
         embeds
     });
 
