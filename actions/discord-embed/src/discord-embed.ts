@@ -26,7 +26,7 @@ async function execute() {
     const octokit = new Octokit();
     const urls = JSON.parse(
         `[${core.getInput(Inputs.WebhookUrls, { required: true })}]`
-    ).flat();
+    ).flat() as string[];
 
     /** get last release from github api */
     const release = await octokit.request(
@@ -41,6 +41,7 @@ async function execute() {
     if (!body) core.error("No release found");
 
     for (const webhook of urls) {
+        console.log("🚀 ~ file: discord-embed.ts:44 ~ urls:", urls);
         /*  const response = await client.postJson(webhook, payload); */
         const formData = new FormData();
         formData.append("upload-file", body);
@@ -56,3 +57,5 @@ async function execute() {
         });
     }
 }
+
+execute();
