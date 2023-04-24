@@ -20,4 +20,4 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  webhook-urls: "[https://discord.com/api/webhooks/1087082443133161533/lFC1g_L1NqWfsYQub3wE4FQY-HTyESZAAlVz8fXFbT9LVPxCX4AbC8fLtF1l5HBo1g5L]"
+                  webhook-urls: https://discord.com/api/webhooks/1087082443133161533/lFC1g_L1NqWfsYQub3wE4FQY-HTyESZAAlVz8fXFbT9LVPxCX4AbC8fLtF1l5HBo1g5L
