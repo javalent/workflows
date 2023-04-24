@@ -55,6 +55,7 @@ async function execute() {
         embed.url = release.data.html_url;
     }
     await client.postJson(webhook, {
+        avatar_url: "https://raw.githubusercontent.com/javalent/workflows/main/actions/discord-embed/assets/profile.png",
         embeds
     });
 }
