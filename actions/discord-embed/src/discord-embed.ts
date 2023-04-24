@@ -46,6 +46,7 @@ async function execute() {
             repo
         }
     );
+    console.log("🚀 ~ file: discord-embed.ts:49 ~ release:", release);
 
     const body = release.data.body_html;
     console.log("🚀 ~ file: discord-embed.ts:41 ~ body:", body);
