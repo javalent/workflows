@@ -9,4 +9,4 @@ inputs:
 
 runs:
     using: "node16"
-    main: "./dist/action.js"
+    main: "../dist/discord-embed.js"
