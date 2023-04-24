@@ -47,7 +47,6 @@ async function execute() {
     /* for (const webhook of urls) { */
     const embeds = DME.render(body);
     for (const embed of embeds) {
-        console.log("🚀 ~ file: discord-embed.ts:58 ~ embed:", embed);
         embed.title = `${name} Release - ${version}`;
         embed.timestamp = release.data.published_at;
         embed.author = "Jeremy Valentine";
