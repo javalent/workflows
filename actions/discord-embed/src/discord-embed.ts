@@ -1,9 +1,8 @@
 import * as core from "@actions/core";
 import { HttpClient } from "@actions/http-client";
 import { Octokit } from "@octokit/action";
-import FormData from "form-data";
-import { createReadStream } from "fs";
-import { writeFile } from "fs/promises";
+//@ts-ignore
+import DME from "discord-markdown-embeds";
 
 enum Inputs {
     WebhookUrls = "webhook-urls",
@@ -46,30 +45,19 @@ async function execute() {
             repo
         }
     );
-    console.log("🚀 ~ file: discord-embed.ts:49 ~ release:", release);
 
-    const body = release.data.body_html;
-    console.log("🚀 ~ file: discord-embed.ts:41 ~ body:", body);
+    const body = release.data.body;
     if (!body) {
         core.error("No release found");
         return;
     }
-    await writeFile("./body.html", body);
 
     /* for (const webhook of urls) { */
     console.log("🚀 ~ file: discord-embed.ts:44 ~ urls:", urls);
+    const embeds = DME.render(body);
+    console.log("🚀 ~ file: discord-embed.ts:58 ~ embeds:", embeds);
     /*  const response = await client.postJson(webhook, payload); */
-    const formData = new FormData();
-    formData.append("upload-file", createReadStream("./body.html"));
-    formData.submit(webhook, function (error, response) {
-        if (error != null) {
-            core.error(`failed to upload file: ${error.message}`);
-        } else {
-            core.info(
-                `successfully uploaded file with status code: ${response.statusCode}`
-            );
-        }
-    });
+
     /* } */
 }
 
