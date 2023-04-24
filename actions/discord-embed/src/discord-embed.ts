@@ -25,8 +25,8 @@ async function execute() {
     const octokit = new Octokit();
     const webhook = core.getInput(Inputs.WebhookUrls, { required: true });
     const repo = core.getInput(Inputs.Repo) ?? thisRepo;
+    core.info(`Running action in ${repo} repository.`);
     const name = core.getInput(Inputs.Name) ?? repo;
-    const urls = JSON.parse(`[]`).flat() as string[];
 
     /** get last release from github api */
     const release = await octokit.request(
@@ -44,7 +44,6 @@ async function execute() {
         return;
     }
 
-    /* for (const webhook of urls) { */
     const embeds = DME.render(body);
     for (const embed of embeds) {
         embed.title = `${name} Release - ${version}`;
@@ -55,12 +54,9 @@ async function execute() {
         });
         embed.url = release.data.html_url;
     }
-    console.log("🚀 ~ file: discord-embed.ts:55 ~ embeds:", embeds);
-    const response = await client.postJson(webhook, {
+    await client.postJson(webhook, {
         embeds
     });
-
-    /* } */
 }
 
 execute();
