@@ -1,0 +1,12 @@
+name: "Javalent Discord Embed"
+description: "Discord Embed PR Release Notes"
+author: "Jeremy Valentine"
+inputs:
+    webhook-urls:
+        description: Array of webhook URLs to post to.
+        default: "[]"
+        required: true
+
+runs:
+    using: "node16"
+    main: "../dist/action.js"

@@ -13,23 +13,4 @@ jobs:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
         # Steps represent a sequence of tasks that will be executed as part of the job
-        steps:
-            - uses: actions/checkout@v2
-            - name: Read VERSION file
-              id: contents
-              run: |
-                  cat test.md | sed -i 's/\n/\\n/g' >> $GITHUB_OUTPUT
-            - name: Gets latest created release info
-              id: release_info
-              uses: jossef/action-latest-release-info@v1.2.1
-              env:
-                  GITHUB_TOKEN: ${{ github.token }}
-            - id: set-matrix
-              run: |
-                  echo "{\"embeds\":[{\"title\":\"New Release: ${{steps.release_info.outputs.name}}\",\"url\":\"${{steps.release_info.outputs.html_url}}\",\"description\":\"$(cat test.md)\", \"timestamp\":\"${{steps.release_info.outputs.created_at}}\"}]}" >> generated.json
-                  cat generated.json
-            - name: Discord Webhook Action
-              uses: tsickert/discord-webhook@v5.3.0
-              with:
-                  webhook-url: https://discord.com/api/webhooks/1087082443133161533/lFC1g_L1NqWfsYQub3wE4FQY-HTyESZAAlVz8fXFbT9LVPxCX4AbC8fLtF1l5HBo1g5L
-                  raw-data: generated.json
+
