@@ -3,6 +3,7 @@ import { HttpClient } from "@actions/http-client";
 import { Octokit } from "@octokit/action";
 //@ts-ignore
 import DME from "discord-markdown-embeds";
+import { EmbedBuilder } from "discord.js";
 
 enum Inputs {
     WebhookUrls = "webhook-urls",
@@ -57,6 +58,10 @@ async function execute() {
         name: string;
         value: string;
     }
+    const exampleEmbed = new EmbedBuilder()
+        .setTitle(`${name} Release - ${version}`)
+        .setTimestamp(new Date(release.data.published_at ?? ""))
+        .setURL(release.data.html_url);
     const finalEmbed: WebhookEmbed = {
         title: `${name} Release - ${version}`,
         timestamp: release.data.published_at ?? "",
@@ -65,13 +70,9 @@ async function execute() {
     };
     for (const embed of embeds) {
         if (embed.fields?.length) {
-            finalEmbed.fields.push(...embed.fields);
+            exampleEmbed.addFields(...embed.fields);
         } else if (embed.title?.length && embed.description?.length) {
-            console.log(
-                "🚀 ~ file: discord-embed.ts:73 ~ embed.description:",
-                embed.description.split("\n").join("\n")
-            );
-            finalEmbed.fields.push({
+            exampleEmbed.addFields({
                 name: embed.title,
                 value: `${embed.description}`
             });
@@ -82,7 +83,7 @@ async function execute() {
         JSON.stringify(finalEmbed)
     );
     await client.postJson(webhook, {
-        embeds: [finalEmbed]
+        embeds: [exampleEmbed.toJSON()]
     });
 }
 

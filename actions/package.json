@@ -14,6 +14,7 @@
     "@octokit/action": "^5.0.2",
     "@types/node": "^18.16.0",
     "discord-markdown-embeds": "^3.6.5",
+    "discord.js": "^14.10.2",
     "esbuild": "^0.17.18",
     "form-data": "^4.0.0",
     "tslib": "^2.5.0",
