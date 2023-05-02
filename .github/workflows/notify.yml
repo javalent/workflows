@@ -1,0 +1,35 @@
+on:
+    workflow_call:
+        inputs:
+            name:
+                required: true
+                type: string
+            repo:
+                required: true
+                type: string
+
+name: upgrade
+
+jobs:
+    notify-obsidian:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Webhook
+              uses: javalent/workflows/actions/discord-embed@main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  name: ${{inputs.name}}
+                  repo: ${{inputs.repo}}
+                  webhook-urls: ${{ secrets.OBSIDIAN_WEBHOOK }}
+    notify-ttrpg:
+        runs-on: ubuntu-latest
+        steps:
+           - name: Webhook
+             uses: javalent/workflows/actions/discord-embed@main
+             env:
+                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+             with:
+                 name: ${{inputs.name}}
+                 repo: ${{inputs.repo}}
+                 webhook-urls: ${{ secrets.TTRPG_WEBHOOK }}
