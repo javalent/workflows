@@ -45,6 +45,7 @@ async function execute() {
     }
 
     const embeds: WebhookEmbed[] = DME.render(body);
+    console.log("🚀 ~ file: discord-embed.ts:48 ~ embeds:", embeds);
     interface WebhookEmbed {
         title: string;
         timestamp: string;
@@ -68,7 +69,7 @@ async function execute() {
         } else if (embed.title?.length && embed.description?.length) {
             console.log(
                 "🚀 ~ file: discord-embed.ts:73 ~ embed.description:",
-                embed.description
+                embed.description.split("\n").join("\n")
             );
             finalEmbed.fields.push({
                 name: embed.title,
