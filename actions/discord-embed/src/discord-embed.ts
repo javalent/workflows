@@ -67,6 +67,7 @@ async function execute() {
         if (embed.fields?.length) {
             exampleEmbed.addFields(...embed.fields);
         } else if (embed.title?.length && embed.description?.length) {
+            console.log(embed.description.split("\n"));
             exampleEmbed.addFields({
                 name: embed.title,
                 value: `${embed.description}`
@@ -75,7 +76,7 @@ async function execute() {
         console.log(
             "🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:",
             embed,
-            exampleEmbed
+            exampleEmbed.data.fields
         );
     }
     await client.postJson(webhook, {
