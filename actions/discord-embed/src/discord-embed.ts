@@ -63,10 +63,11 @@ async function execute() {
     }
     fielded.fields.push({
         name: "Documentation",
-        value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)"
+        value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)",
+        inline: false
     });
     await client.postJson(webhook, {
-        embeds
+        embeds: [fielded]
     });
 }
 
