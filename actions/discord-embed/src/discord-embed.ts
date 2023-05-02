@@ -67,10 +67,10 @@ async function execute() {
         if (embed.fields?.length) {
             exampleEmbed.addFields(...embed.fields);
         } else if (embed.title?.length && embed.description?.length) {
-            console.log(embed.description.split("\n"));
+            console.log();
             exampleEmbed.addFields({
                 name: embed.title,
-                value: `${embed.description}`
+                value: embed.description.split("\n").join("<br/>")
             });
         }
         console.log(
