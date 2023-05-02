@@ -62,12 +62,7 @@ async function execute() {
         .setTitle(`${name} Release - ${version}`)
         .setTimestamp(new Date(release.data.published_at ?? ""))
         .setURL(release.data.html_url);
-    const finalEmbed: WebhookEmbed = {
-        title: `${name} Release - ${version}`,
-        timestamp: release.data.published_at ?? "",
-        fields: [],
-        url: release.data.html_url
-    };
+
     for (const embed of embeds) {
         if (embed.fields?.length) {
             exampleEmbed.addFields(...embed.fields);
@@ -78,10 +73,7 @@ async function execute() {
             });
         }
     }
-    console.log(
-        "🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:",
-        JSON.stringify(finalEmbed)
-    );
+    console.log("🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:", exampleEmbed);
     await client.postJson(webhook, {
         embeds: [exampleEmbed.toJSON()]
     });
