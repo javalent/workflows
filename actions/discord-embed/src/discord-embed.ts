@@ -66,6 +66,7 @@ async function execute() {
         value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)",
         inline: false
     });
+    console.log("🚀 ~ file: discord-embed.ts:69 ~ fielded:", fielded);
     await client.postJson(webhook, {
         embeds: [fielded]
     });
