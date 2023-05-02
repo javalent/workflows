@@ -68,10 +68,15 @@ async function execute() {
             exampleEmbed.addFields(...embed.fields);
         } else if (embed.title?.length && embed.description?.length) {
             console.log(embed.description.split("\n").join(" "));
-            exampleEmbed.addFields({
-                name: embed.title,
-                value: embed.description.split("\n").join(" ")
-            });
+            try {
+                exampleEmbed.addFields({
+                    name: embed.title,
+                    value: "• can disable encounter builder ribbon icon ([d6d2bee](https://github.com/javalent/initiative-tracker/commit/d6d2bee38d423ac1512ec81b5704f3a540839b17)) • can now open combatant view for creatures in encounter builder ([d6d2bee](https://github.com/javalent/initiative-tracker/commit/d6d2bee38d423ac1512ec81b5704f3a540839b17)) • creatures in table display difficulty ([921034a](https://github.com/javalent/initiative-tracker/commit/921034a695a04312ffa09768329e9fdc791b8e04)) • encounter builder name is editable ([d6d2bee](https://github.com/javalent/initiative-tracker/commit/d6d2bee38d423ac1512ec81b5704f3a540839b17)) • launching encounter from builder works again ([d6d2bee](https://github.com/javalent/initiative-tracker/commit/d6d2bee38d423ac1512ec81b5704f3a540839b17)) • new encounter builder ribbon icon ([d6d2bee](https://github.com/javalent/initiative-tracker/commit/d6d2bee38d423ac1512ec81b5704f3a540839b17)) • player & xp sections of builder are collapsible ([8505873](https://github.com/javalent/initiative-tracker/commit/85058739e04b9947fe08dc93e732bf3095dbf5b1))"
+                });
+            } catch (e) {
+                console.error(e);
+                return;
+            }
         }
         console.log(
             "🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:",
