@@ -44,31 +44,37 @@ async function execute() {
         return;
     }
 
-    const embeds = DME.render(body);
-    const fielded = embeds.find((e: any) => e.fields?.length);
-    fielded.title = `${name} Release - ${version}`;
-    fielded.timestamp = release.data.published_at;
-    fielded.url = release.data.html_url;
+    const embeds: WebhookEmbed[] = DME.render(body);
+    interface WebhookEmbed {
+        title: string;
+        timestamp: string;
+        description?: string;
+        fields: Embed[];
+        url: string;
+    }
+    interface Embed {
+        name: string;
+        value: string;
+    }
+    const finalEmbed: WebhookEmbed = {
+        title: `${name} Release - ${version}`,
+        timestamp: release.data.published_at ?? "",
+        fields: [],
+        url: release.data.html_url
+    };
     for (const embed of embeds) {
-        console.log("🚀 ~ file: discord-embed.ts:49 ~ embed:", embed);
         if (embed.fields?.length) {
-            fielded.fields.push(...embed.fields);
-        } else {
-            fielded.fields.push({
+            finalEmbed.fields.push(...embed.fields);
+        } else if (embed.title?.length && embed.description?.length) {
+            finalEmbed.fields.push({
                 name: embed.title,
-                value: embed.description,
-                inline: false
+                value: embed.description
             });
         }
     }
-    fielded.fields.push({
-        name: "Documentation",
-        value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)",
-        inline: false
-    });
-    console.log("🚀 ~ file: discord-embed.ts:69 ~ fielded:", fielded);
+    console.log("🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:", finalEmbed);
     await client.postJson(webhook, {
-        embeds: [fielded]
+        embeds: finalEmbed
     });
 }
 
