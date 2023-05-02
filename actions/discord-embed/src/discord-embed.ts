@@ -68,7 +68,7 @@ async function execute() {
         } else if (embed.title?.length && embed.description?.length) {
             finalEmbed.fields.push({
                 name: embed.title,
-                value: embed.description
+                value: `${embed.description}`
             });
         }
     }
