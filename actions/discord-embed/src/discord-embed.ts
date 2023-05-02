@@ -45,16 +45,26 @@ async function execute() {
     }
 
     const embeds = DME.render(body);
+    const fielded = embeds.find((e: any) => e.fields?.length);
+    fielded.title = `${name} Release - ${version}`;
+    fielded.timestamp = release.data.published_at;
+    fielded.url = release.data.html_url;
     for (const embed of embeds) {
         console.log("🚀 ~ file: discord-embed.ts:49 ~ embed:", embed);
-        embed.title = `${name} Release - ${version}`;
-        embed.timestamp = release.data.published_at;
-        embed.fields.push({
-            name: "Documentation",
-            value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)"
-        });
-        embed.url = release.data.html_url;
+        if (embed.fields?.length) {
+            fielded.fields.push(...embed.fields);
+        } else {
+            fielded.fields.push({
+                name: embed.title,
+                value: embed.description,
+                inline: false
+            });
+        }
     }
+    fielded.fields.push({
+        name: "Documentation",
+        value: "See more at [https://plugins.javalent.com](https://plugins.javalent.com)"
+    });
     await client.postJson(webhook, {
         embeds
     });
