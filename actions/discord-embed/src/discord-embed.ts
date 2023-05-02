@@ -78,7 +78,7 @@ async function execute() {
     }
     console.log("🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:", finalEmbed);
     await client.postJson(webhook, {
-        embeds: finalEmbed
+        embeds: [finalEmbed]
     });
 }
 
