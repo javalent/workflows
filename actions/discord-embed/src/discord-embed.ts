@@ -66,6 +66,10 @@ async function execute() {
         if (embed.fields?.length) {
             finalEmbed.fields.push(...embed.fields);
         } else if (embed.title?.length && embed.description?.length) {
+            console.log(
+                "🚀 ~ file: discord-embed.ts:73 ~ embed.description:",
+                embed.description
+            );
             finalEmbed.fields.push({
                 name: embed.title,
                 value: `${embed.description}`
