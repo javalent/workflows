@@ -72,7 +72,7 @@ async function execute() {
             );
             finalEmbed.fields.push({
                 name: embed.title,
-                value: `${embed.description}`
+                value: embed.description.split("\n")[0]
             });
         }
     }
