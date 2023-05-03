@@ -88,6 +88,10 @@ async function execute() {
                 return;
             }
         }
+        exampleEmbed.addFields({
+            name: "Documentation",
+            value: "See more at [plugins.javalent.com](https://plugins.javalent.com)"
+        });
         console.log(
             "🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:",
             embed,
