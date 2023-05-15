@@ -25,7 +25,10 @@ async function execute() {
     const client = new HttpClient();
     const octokit = new Octokit();
     const webhook = core.getInput(Inputs.WebhookUrls, { required: true });
-    const repo = core.getInput(Inputs.Repo) ?? thisRepo;
+    let repo = core.getInput(Inputs.Repo);
+    if (!repo || repo?.length) {
+        repo = thisRepo;
+    }
     core.info(`Running action in ${repo} repository.`);
     const name = core.getInput(Inputs.Name) ?? repo;
 
