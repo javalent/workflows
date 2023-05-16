@@ -102,7 +102,9 @@ async function execute() {
         );
     }
     await client.postJson(webhook, {
-        embeds: [exampleEmbed.toJSON()]
+        embeds: [exampleEmbed.toJSON()],
+        avatar_url:
+            "https://avatars.githubusercontent.com/u/131289534?s=400&u=e2a0a05141177af90d007953d116934d3b434385&v=4"
     });
 }
 
