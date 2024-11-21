@@ -10,6 +10,8 @@ inputs:
         description: Override repo being ran
     name:
         description: Name to use for release notification
+    beta:
+        description: This release is a beta release.
 runs:
     using: "node16"
     main: "../dist/discord-embed.js"
