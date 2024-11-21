@@ -92,21 +92,16 @@ async function execute() {
                 return;
             }
         }
+    }
+    exampleEmbed.addFields({
+        name: "Documentation",
+        value: "See more at [plugins.javalent.com](https://plugins.javalent.com)"
+    });
+    if (core.getInput(Inputs.Beta)) {
         exampleEmbed.addFields({
-            name: "Documentation",
-            value: "See more at [plugins.javalent.com](https://plugins.javalent.com)"
+            name: "Beta release",
+            value: "This is a beta release and can be installed using the [BRAT plugin](https://obsidian.md/plugins?id=BRAT)."
         });
-        if (core.getInput(Inputs.Beta)) {
-            exampleEmbed.addFields({
-                name: "Beta release",
-                value: "This is a beta release and can be installed using the [BRAT plugin](https://obsidian.md/plugins?id=BRAT)."
-            });
-        }
-        console.log(
-            "🚀 ~ file: discord-embed.ts:78 ~ finalEmbed:",
-            embed,
-            exampleEmbed.data.fields
-        );
     }
     await client.postJson(webhook, {
         embeds: [exampleEmbed.toJSON()],
