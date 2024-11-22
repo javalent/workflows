@@ -13,5 +13,5 @@ inputs:
     beta:
         description: This release is a beta release.
 runs:
-    using: "node16"
+    using: "node20"
     main: "../dist/discord-embed.js"
